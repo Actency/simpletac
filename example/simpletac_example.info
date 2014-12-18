@@ -1,0 +1,5 @@
+name = Simpletac example
+description = Example module for simpletac
+core = 7.x
+
+dependencies[] = simpletac

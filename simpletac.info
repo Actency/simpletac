@@ -1,0 +1,5 @@
+name = Simple TAC
+description = Simple Taxonomy Access Control module.
+core = 7.x
+
+dependencies[] = xautoload

@@ -1,0 +1,47 @@
+<?php
+use Drupal\simpletac\InfoBuilder;
+
+/**
+ * Implements hook_node_grants()
+ *
+ * @param object $account
+ * @param string $op
+ *
+ * @return array[]
+ *   Format: $[$realm][] = $tid
+ */
+function simpletac_node_grants($account, $op) {
+  $user = user_load($account->uid);
+  return simpletac_info()->getNodeGrants($user, $op);
+}
+
+/**
+ * Implements hook_node_access_records().
+ *
+ * @param object $node
+ *
+ * @return array[]
+ *   Format: $[] = array(
+ *     'realm' => 'simpletac:field_user_term:field_node_term',
+ *     'gid' => 123,
+ *     'grant_view' => 1,
+ *     'grant_update' => 0,
+ *     'grant_delete' => 0,
+ *     'priority' => 0,
+ *   );
+ */
+function simpletac_node_access_records($node) {
+  return simpletac_info()->getNodeAccessRecords($node);
+}
+
+/**
+ * @return \Drupal\simpletac\Info\SimpletacInfo
+ */
+function simpletac_info() {
+  static $info;
+  if (!isset($info)) {
+    $builder = new InfoBuilder(field_info_fields());
+    $info = $builder->getInfo();
+  }
+  return $info;
+}
