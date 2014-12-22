@@ -33,7 +33,9 @@ class SimpletacAPI {
    * @throws \Exception
    */
   function userField($fieldName) {
-    $this->info[$fieldName] = array();
+    if (!isset($this->info[$fieldName])) {
+      $this->info[$fieldName] = array();
+    }
     return new UserField($this->info[$fieldName]);
   }
 }

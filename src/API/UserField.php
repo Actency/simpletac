@@ -31,7 +31,9 @@ class UserField {
    * @return \Drupal\simpletac\API\UserNodeField
    */
   function nodeField($fieldName) {
-    $this->info[$fieldName] = array();
+    if (!isset($this->info[$fieldName])) {
+      $this->info[$fieldName] = array();
+    }
     return new UserNodeField($this->info[$fieldName]);
   }
 }
